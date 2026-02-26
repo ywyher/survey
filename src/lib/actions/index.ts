@@ -3,10 +3,10 @@
 import { desc, eq } from "drizzle-orm";
 import type z from "zod";
 import { db } from "@/lib/db";
-import { survey } from "@/lib/db/schema";
-import { surveySchema } from "@/app/submit/page";
+import { response } from "@/lib/db/schema";
+import { responseSchema } from "@/app/submit/page";
 
-export async function submitSurvey(data: z.infer<typeof surveySchema>) {
+export async function submitResponse(data: z.infer<typeof responseSchema>) {
   const {
     age,
     gender,
@@ -18,7 +18,7 @@ export async function submitSurvey(data: z.infer<typeof surveySchema>) {
   } = data;
 
   try {
-    await db.insert(survey).values({
+    await db.insert(response).values({
       age,
       gender,
       occupation,
@@ -40,14 +40,14 @@ export async function submitSurvey(data: z.infer<typeof surveySchema>) {
   }
 }
 
-export async function getSurveys() {
-  const data = await db.select().from(survey).orderBy(desc(survey.createdAt));
+export async function getResponses() {
+  const data = await db.select().from(response).orderBy(desc(response.createdAt));
   return data;
 }
 
-export async function deleteSurvey(id: string) {
+export async function deleteResponse(id: string) {
   try {
-    await db.delete(survey).where(eq(survey.id, id));
+    await db.delete(response).where(eq(response.id, id));
     return { error: null };
   } catch (error) {
     return {

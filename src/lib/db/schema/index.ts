@@ -1,5 +1,4 @@
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -29,7 +28,7 @@ export const activityLevelEnum = pgEnum("activity_level_enum", [
   "very_active",
 ]);
 
-export const survey = pgTable("survey", {
+export const response = pgTable("response", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),

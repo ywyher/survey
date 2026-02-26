@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/ui/loading-button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { submitSurvey } from "@/lib/actions";
+import { submitResponse } from "@/lib/actions";
 import {
   activityLevels,
   booleanOptions,
@@ -29,7 +29,7 @@ import {
 } from "@/lib/constants";
 import type { BooleanValue } from "@/lib/types";
 
-export const surveySchema = z
+export const responseSchema = z
   .object({
     gender: z.enum(["male", "female"], { message: "Please select a gender." }),
     age: z
@@ -69,7 +69,7 @@ export default function SubmitPage() {
   const router = useRouter();
 
   const form = useForm({
-    resolver: zodResolver(surveySchema),
+    resolver: zodResolver(responseSchema),
     defaultValues: {
       gender: "" as "male" | "female",
       age: "" as unknown as number,
@@ -81,10 +81,10 @@ export default function SubmitPage() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof surveySchema>) => {
+  const onSubmit = async (data: z.infer<typeof responseSchema>) => {
     setIsLoading(true);
     try {
-      const result = await submitSurvey(data);
+      const result = await submitResponse(data);
       if (result.error) {
         toast.error(result.error);
         return;
@@ -101,7 +101,7 @@ export default function SubmitPage() {
     }
   };
 
-  const onError = (errors: FieldErrors<z.infer<typeof surveySchema>>) => {
+  const onError = (errors: FieldErrors<z.infer<typeof responseSchema>>) => {
     console.log(errors);
   };
 

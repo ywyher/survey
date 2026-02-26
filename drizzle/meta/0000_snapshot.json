@@ -1,11 +1,11 @@
 {
-  "id": "4eca5047-a3b9-4b93-b538-843aa87683d4",
+  "id": "32aebf51-e3c2-4049-9f43-8efbc9e9c84e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.survey": {
-      "name": "survey",
+    "public.response": {
+      "name": "response",
       "schema": "",
       "columns": {
         "id": {
@@ -98,12 +98,21 @@
     "public.gender_enum": {
       "name": "gender_enum",
       "schema": "public",
-      "values": ["male", "female"]
+      "values": [
+        "male",
+        "female"
+      ]
     },
     "public.joint_enum": {
       "name": "joint_enum",
       "schema": "public",
-      "values": ["knee", "hip", "hand", "shoulder", "spine"]
+      "values": [
+        "knee",
+        "hip",
+        "hand",
+        "shoulder",
+        "spine"
+      ]
     },
     "public.occupation_enum": {
       "name": "occupation_enum",

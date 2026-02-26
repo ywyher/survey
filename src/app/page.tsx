@@ -5,7 +5,7 @@ import { Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { deleteSurvey, getSurveys } from "@/lib/actions";
+import { deleteResponse, getResponses } from "@/lib/actions";
 
 export default function SurveysPage() {
   const queryClient = useQueryClient();
@@ -16,11 +16,11 @@ export default function SurveysPage() {
     isError,
   } = useQuery({
     queryKey: ["surveys"],
-    queryFn: getSurveys,
+    queryFn: getResponses,
   });
 
   const { mutate: remove, isPending: isDeleting } = useMutation({
-    mutationFn: deleteSurvey,
+    mutationFn: deleteResponse,
     onSuccess: (result, id) => {
       if (result.error) {
         toast.error(result.error);

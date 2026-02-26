@@ -2,7 +2,7 @@ CREATE TYPE "public"."activity_level_enum" AS ENUM('sedentary', 'lightly_active'
 CREATE TYPE "public"."gender_enum" AS ENUM('male', 'female');--> statement-breakpoint
 CREATE TYPE "public"."joint_enum" AS ENUM('knee', 'hip', 'hand', 'shoulder', 'spine');--> statement-breakpoint
 CREATE TYPE "public"."occupation_enum" AS ENUM('office_work', 'hard_manual_labor', 'housewife', 'outdoor_work', 'light_to_moderate_activity');--> statement-breakpoint
-CREATE TABLE "survey" (
+CREATE TABLE "response" (
 	"id" text PRIMARY KEY NOT NULL,
 	"age" integer NOT NULL,
 	"gender" "gender_enum" NOT NULL,
