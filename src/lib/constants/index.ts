@@ -1,7 +1,4 @@
-export const genders = [
-  "male",
-  "female",
-] as const
+export const genders = ["male", "female"] as const;
 
 export const occupations = [
   "office_work",
@@ -9,25 +6,15 @@ export const occupations = [
   "housewife",
   "outdoor_work",
   "light_to_moderate_activity",
-] as const
+] as const;
 
 export const activityLevels = [
   "sedentary",
   "lightly_active",
   "moderately_active",
   "very_active",
-] as const
+] as const;
 
-export const booleanOptions = [
-  "yes",
-  "no",
-  "unsure"
-] as const
+export const booleanOptions = ["yes", "no", "unsure"] as const;
 
-export const joints = [
-  "knee",
-  "hip",
-  "hand",
-  "shoulder",
-  "spine",
-] as const
+export const joints = ["knee", "hip", "hand", "shoulder", "spine"] as const;

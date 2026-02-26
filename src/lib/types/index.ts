@@ -1,1 +1,1 @@
-export type BooleanValue = "yes" | "no" | "unsure"
+export type BooleanValue = "yes" | "no" | "unsure";

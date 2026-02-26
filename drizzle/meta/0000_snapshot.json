@@ -98,21 +98,12 @@
     "public.gender_enum": {
       "name": "gender_enum",
       "schema": "public",
-      "values": [
-        "male",
-        "female"
-      ]
+      "values": ["male", "female"]
     },
     "public.joint_enum": {
       "name": "joint_enum",
       "schema": "public",
-      "values": [
-        "knee",
-        "hip",
-        "hand",
-        "shoulder",
-        "spine"
-      ]
+      "values": ["knee", "hip", "hand", "shoulder", "spine"]
     },
     "public.occupation_enum": {
       "name": "occupation_enum",

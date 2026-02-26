@@ -1,41 +1,46 @@
-"use client"
+"use client";
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getSurveys, deleteSurvey } from "@/lib/actions"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Plus, Trash2 } from "lucide-react"
-import { toast } from "sonner"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Plus, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { deleteSurvey, getSurveys } from "@/lib/actions";
 
 export default function SurveysPage() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  const { data: surveys, isLoading, isError } = useQuery({
+  const {
+    data: surveys,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["surveys"],
     queryFn: getSurveys,
-  })
+  });
 
   const { mutate: remove, isPending: isDeleting } = useMutation({
     mutationFn: deleteSurvey,
     onSuccess: (result, id) => {
       if (result.error) {
-        toast.error(result.error)
-        return
+        toast.error(result.error);
+        return;
       }
-      toast.success("Response deleted.")
+      toast.success("Response deleted.");
       queryClient.setQueryData(["surveys"], (old: typeof surveys) =>
-        old?.filter((s) => s.id !== id)
-      )
+        old?.filter((s) => s.id !== id),
+      );
     },
     onError: () => toast.error("Failed to delete."),
-  })
+  });
 
   return (
     <div className="mt-6 flex flex-col gap-2">
-
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Survey Responses</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Survey Responses
+          </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {surveys?.length ?? 0} total responses
           </p>
@@ -51,7 +56,10 @@ export default function SurveysPage() {
       {isLoading && (
         <div className="grid gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-background rounded-xl border p-5 animate-pulse h-20" />
+            <div
+              key={i}
+              className="bg-background rounded-xl border p-5 animate-pulse h-20"
+            />
           ))}
         </div>
       )}
@@ -74,12 +82,17 @@ export default function SurveysPage() {
       {!isLoading && surveys && surveys.length > 0 && (
         <div className="grid gap-3">
           {surveys.map((s) => (
-            <div key={s.id} className="
+            <div
+              key={s.id}
+              className="
               bg-background rounded-xl border p-5 flex items-end justify-between
-            ">
+            "
+            >
               <div className="flex flex-col gap-2">
                 <div>
-                  <p className="font-medium capitalize">{s.gender}, {s.age} yrs</p>
+                  <p className="font-medium capitalize">
+                    {s.gender}, {s.age} yrs
+                  </p>
                   <p className="text-sm text-muted-foreground capitalize">
                     {s.occupation.replace(/_/g, " ")}
                   </p>
@@ -87,7 +100,10 @@ export default function SurveysPage() {
                 <div className="flex flex-row flex-wrap sm:flex gap-2">
                   <Badge label="Diagnosed" value={s.isDiagnosed} />
                   <Badge label="Chronic Pain" value={s.hasChronicPain} />
-                  <Badge label="Activity" value={s.activityLevel.replace(/_/g, " ")} />
+                  <Badge
+                    label="Activity"
+                    value={s.activityLevel.replace(/_/g, " ")}
+                  />
                   {s.affectedJoints && s.affectedJoints.length > 0 && (
                     <Badge label="Joints" value={s.affectedJoints.join(", ")} />
                   )}
@@ -111,9 +127,8 @@ export default function SurveysPage() {
           ))}
         </div>
       )}
-
     </div>
-  )
+  );
 }
 
 function Badge({ label, value }: { label: string; value: string }) {
@@ -122,5 +137,5 @@ function Badge({ label, value }: { label: string; value: string }) {
       <span className="text-muted-foreground">{label}:</span>
       <span className="font-medium capitalize">{value}</span>
     </span>
-  )
+  );
 }
