@@ -2,9 +2,9 @@
 
 import { desc, eq } from "drizzle-orm";
 import type z from "zod";
-import type { surveySchema } from "@/app/form";
 import { db } from "@/lib/db";
 import { survey } from "@/lib/db/schema";
+import { surveySchema } from "@/app/submit/page";
 
 export async function submitSurvey(data: z.infer<typeof surveySchema>) {
   const {
