@@ -77,6 +77,7 @@ export default function Delete({ response }: { response: Response }) {
               <LoadingButton
                 variant="destructive"
                 isLoading={isLoading}
+                className="w-full"
               >
                 Delete
               </LoadingButton>
