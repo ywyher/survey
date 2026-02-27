@@ -71,6 +71,7 @@ export default function ResponsesPage() {
               key={s.id}
               className="
               bg-background rounded-xl border p-5 flex items-end justify-between
+              flex-col md:flex-row
             "
             >
               <div className="flex flex-col gap-2">
