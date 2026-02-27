@@ -92,7 +92,7 @@ export default function SubmitPage() {
       toast.success("Survey submitted successfully!");
       form.reset();
       setIsDiagnosed(false);
-      queryClient.invalidateQueries({ queryKey: ["surveys"] });
+      queryClient.invalidateQueries({ queryKey: ["responses"] });
       router.push("/");
     } catch (error) {
       toast.error("Something went wrong. Please try again.");

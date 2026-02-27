@@ -1,37 +1,22 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Plus, Trash2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
 import Link from "next/link";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { deleteResponse, getResponses } from "@/lib/actions";
+import { getResponses } from "@/lib/actions";
+import Delete from "@/components/delete";
+import { format } from "date-fns"
 
-export default function SurveysPage() {
-  const queryClient = useQueryClient();
+export default function ResponsesPage() {
 
   const {
-    data: surveys,
+    data: responses,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["surveys"],
+    queryKey: ["responses"],
     queryFn: getResponses,
-  });
-
-  const { mutate: remove, isPending: isDeleting } = useMutation({
-    mutationFn: deleteResponse,
-    onSuccess: (result, id) => {
-      if (result.error) {
-        toast.error(result.error);
-        return;
-      }
-      toast.success("Response deleted.");
-      queryClient.setQueryData(["surveys"], (old: typeof surveys) =>
-        old?.filter((s) => s.id !== id),
-      );
-    },
-    onError: () => toast.error("Failed to delete."),
   });
 
   return (
@@ -42,7 +27,7 @@ export default function SurveysPage() {
             Survey Responses
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            {surveys?.length ?? 0} total responses
+            {responses?.length ?? 0} total responses
           </p>
         </div>
         <Button>
@@ -66,11 +51,11 @@ export default function SurveysPage() {
 
       {isError && (
         <div className="bg-background rounded-xl border p-6 text-center text-muted-foreground">
-          Failed to load surveys.
+          Failed to load responses.
         </div>
       )}
 
-      {!isLoading && surveys?.length === 0 && (
+      {!isLoading && responses?.length === 0 && (
         <div className="bg-background rounded-xl border p-12 text-center">
           <p className="text-muted-foreground">No responses yet.</p>
           <Button className="mt-4">
@@ -79,9 +64,9 @@ export default function SurveysPage() {
         </div>
       )}
 
-      {!isLoading && surveys && surveys.length > 0 && (
+      {!isLoading && responses && responses.length > 0 && (
         <div className="grid gap-3">
-          {surveys.map((s) => (
+          {responses.map((s) => (
             <div
               key={s.id}
               className="
@@ -111,17 +96,9 @@ export default function SurveysPage() {
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-xs text-muted-foreground">
-                  {new Date(s.createdAt).toLocaleDateString()}
+                  {format(new Date(s.createdAt), "MMM d, yyyy h:mm a")}
                 </p>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="cursor-pointer text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-                  onClick={() => remove(s.id)}
-                  disabled={isDeleting}
-                >
-                  <Trash2 className="w-4 h-4" />
-                </Button>
+                <Delete response={s} />
               </div>
             </div>
           ))}
